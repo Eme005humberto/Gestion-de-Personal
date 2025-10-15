@@ -42,9 +42,14 @@ public class SvEmpleados extends HttpServlet {
 	}
 
 	
-	private void editarEmpleado(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
+	private void editarEmpleado(HttpServletRequest request, HttpServletResponse response) 
+	throws ServletException, IOException{
+		int idEmpleado = Integer.parseInt(request.getParameter("id"));
+		Empleados empleado = new EmpleadosService().BuscarEmpleado(new Empleados(idEmpleado));
+		request.setAttribute("empleado", empleado);
 		
+		String jspEditar = "editarEmpleado.jsp";
+		request.getRequestDispatcher(jspEditar).forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -65,13 +70,14 @@ public class SvEmpleados extends HttpServlet {
 }
 
 	private void modificarEmpleado(HttpServletRequest request, HttpServletResponse response) {
-		/*Agregamos los parametros a utilizar*/
+		/*Agregamos los parametros a utilizar
 		String nombre = request.getParameter("nombre");
 		String apellido = request.getParameter("apellido");
 		String dui = request.getParameter("dui");
 		String cargo = request.getParameter("cargo");
 		String salario = request.getParameter("salario");
 		int id = Integer.parseInt(request.getParameter("id"));
+		*/
 	}
 
 	private void insertarEmpleado(HttpServletRequest request, HttpServletResponse response)

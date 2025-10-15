@@ -65,12 +65,6 @@ table.dataTable tbody tr:hover {
 			</a>
 		</div>
 	</nav>
-	<div id="loading"
-		class="position-fixed top-0 start-0 w-100 h-100 d-none align-items-center justify-content-center bg-white bg-opacity-75"
-		style="z-index: 1055; display: none;">
-		<div class="spinner-border" role="status" aria-hidden="true"></div>
-		<span class="ms-2">Procesando…</span>
-	</div>
 
 	<div class="container py-4">
 		<div class="d-flex align-items-center justify-content-between mb-3">
@@ -97,6 +91,7 @@ table.dataTable tbody tr:hover {
 							<th>Dui</th>
 							<th>Cargo</th>
 							<th>Salario</th>
+							<th>Acciones</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -108,6 +103,20 @@ table.dataTable tbody tr:hover {
 								<td>${e.dui }</td>
 								<td>${e.cargo}</td>
 								<td>${e.salario}</td>
+								<td>
+									<div class="d-flex gap-2">
+										<a
+											href="${pageContext.request.contextPath}/SvEmpleados?accion=editar&id=${e.id}"
+											class="btn btn-outline-primary"> <i
+											class="bi bi-pencil-square"></i> Editar
+										</a>
+										<a
+											href="${pageContext.request.contextPath}/SvEmpleados?accion=eliminar&id=${e.id}"
+											class="btn btn-outline-danger"> <i class="bi bi-trash"></i>
+											Eliminar
+										</a>
+									</div>
+								</td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -199,25 +208,29 @@ table.dataTable tbody tr:hover {
 
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<c:if test="${sessionScope.flash == 'ok'}">
-  <script>
-    Swal.fire({
-      icon: 'success',
-      title: '¡Guardado!',
-      text: 'El empleado se registró correctamente.',
-      timer: 1600,
-      showConfirmButton: false
-    });
-  </script>
-  <c:remove var="flash" scope="session"/>
-</c:if>
+	<c:if test="${sessionScope.flash == 'ok'}">
+		<script>
+			Swal.fire({
+				icon : 'success',
+				title : '¡Guardado!',
+				text : 'El empleado se registró correctamente.',
+				timer : 1600,
+				showConfirmButton : false
+			});
+		</script>
+		<c:remove var="flash" scope="session" />
+	</c:if>
 
-<c:if test="${sessionScope.flash == 'error'}">
-  <script>
-    Swal.fire({ icon:'error', title:'Ups', text:'No se pudo guardar.' });
-  </script>
-  <c:remove var="flash" scope="session"/>
-</c:if>
+	<c:if test="${sessionScope.flash == 'error'}">
+		<script>
+			Swal.fire({
+				icon : 'error',
+				title : 'Ups',
+				text : 'No se pudo guardar.'
+			});
+		</script>
+		<c:remove var="flash" scope="session" />
+	</c:if>
 
 	<script>
 		$(function() {

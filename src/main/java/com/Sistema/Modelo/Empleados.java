@@ -11,6 +11,11 @@ public class Empleados {
 	
 	
 	
+	public Empleados(Integer id) {
+		super();
+		this.id = id;
+	}
+
 	public Empleados() {
 		super();
 	}
