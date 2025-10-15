@@ -68,9 +68,8 @@ table.dataTable tbody tr:hover {
 		</div>
 	</nav>
 	<div class="container py-4">
+	<br>
 		<div class="d-flex align-items-center justify-content-between mb-3">
-			<h1 class="page-title h3 mb-0">Modificar informacion del
-				empleado</h1>
 			<div class="row justify-content-center">
 				<div class="col-lg-8">
 					<div class="card shadow-sm border-0 rounded-4">
@@ -79,14 +78,12 @@ table.dataTable tbody tr:hover {
 								<i class="bi bi-person-gear"></i> Editar empleado
 							</h5>
 						</div>
-
-						<!-- SUGERENCIA: arma la URL con c:url -->
 						<c:url var="urlEditar" value="/SvEmpleados">
 							<c:param name="accion" value="editar" />
 						</c:url>
 
 						<form class="needs-validation" novalidate method="post"
-							action="">
+							action="${pageContext.request.contextPath }/SvEmpleados?accion=modificar&id=${empleado.id}">
 							<div class="card-body">
 								<div class="row g-3">
 									<div class="col-md-6">
@@ -94,18 +91,18 @@ table.dataTable tbody tr:hover {
 										<div class="input-group">
 											<span class="input-group-text"><i class="bi bi-person"></i></span>
 											<input type="text" name="nombre" class="form-control"
-												value="" maxlength="100" required
+												value="${empleado.nombre }"required
 												placeholder="Nombre">
 											<div class="invalid-feedback">Ingresa el nombre.</div>
 										</div>
 									</div>
-
+									
 									<div class="col-md-6">
 										<label class="form-label">Apellido</label>
 										<div class="input-group">
 											<span class="input-group-text"><i class="bi bi-person"></i></span>
 											<input type="text" name="apellido" class="form-control"
-												value="" maxlength="100" required
+												value="${empleado.apellido }" required
 												placeholder="Apellido">
 											<div class="invalid-feedback">Ingresa el apellido.</div>
 										</div>
@@ -116,7 +113,7 @@ table.dataTable tbody tr:hover {
 										<div class="input-group">
 											<span class="input-group-text"><i
 												class="bi bi-credit-card-2-front"></i></span> <input type="text"
-												name="dui" class="form-control" value=""
+												name="dui" class="form-control" value="${empleado.dui }"
 												pattern="^[0-9]{8}-[0-9]{1}$" placeholder="01234567-8"
 												required>
 											<div class="invalid-feedback">Formato DUI inválido (ej.
@@ -129,8 +126,7 @@ table.dataTable tbody tr:hover {
 										<div class="input-group">
 											<span class="input-group-text"><i
 												class="bi bi-briefcase"></i></span> <input type="text" name="cargo"
-												class="form-control" value=""
-												maxlength="100" required
+												class="form-control" value="${empleado.cargo }" required
 												placeholder="Ej: Analista de Sistemas">
 											<div class="invalid-feedback">Ingresa el cargo.</div>
 										</div>
@@ -141,9 +137,8 @@ table.dataTable tbody tr:hover {
 										<div class="input-group">
 											<span class="input-group-text"><i
 												class="bi bi-cash-coin"></i></span>
-											<!-- Si tu BD usa DECIMAL, puedes usar type="number" step="0.01" -->
 											<input type="text" name="salario" class="form-control"
-												value="" required
+												value="${empleado.salario }" required
 												placeholder="Ej: 650.00">
 											<div class="invalid-feedback">Ingresa el salario.</div>
 										</div>
@@ -167,7 +162,7 @@ table.dataTable tbody tr:hover {
 			</div>
 		</div>
 	</div>
-	<!-- jQuery (requerido por DataTables) -->
+
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 	<!-- Bootstrap 5 (JS) -->
 	<script
@@ -186,7 +181,6 @@ table.dataTable tbody tr:hover {
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
-<!-- Validación Bootstrap (inclúyelo una sola vez en tu layout) -->
 <script>
 (() => {
   'use strict';
