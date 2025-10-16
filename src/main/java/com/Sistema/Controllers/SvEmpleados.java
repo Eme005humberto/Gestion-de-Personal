@@ -69,15 +69,23 @@ public class SvEmpleados extends HttpServlet {
 		accionDefault(request,response);
 }
 
-	private void modificarEmpleado(HttpServletRequest request, HttpServletResponse response) {
-		/*Agregamos los parametros a utilizar
+	private void modificarEmpleado(HttpServletRequest request, HttpServletResponse response) 
+		throws ServletException,IOException{
+		/*Agregamos los parametros a utilizar*/
 		String nombre = request.getParameter("nombre");
 		String apellido = request.getParameter("apellido");
 		String dui = request.getParameter("dui");
 		String cargo = request.getParameter("cargo");
 		String salario = request.getParameter("salario");
 		int id = Integer.parseInt(request.getParameter("id"));
-		*/
+		
+		Empleados empleado = new Empleados(id,nombre,apellido,dui,cargo,salario); 
+		int registrosModificados = new EmpleadosService().modificarEmpleado(empleado);
+		System.out.println("Registros modificados: "+registrosModificados);
+		
+		this.accionDefault(request, response);//Invocamos el metodo que carga la lista
+		//de empleados
+		
 	}
 
 	private void insertarEmpleado(HttpServletRequest request, HttpServletResponse response)

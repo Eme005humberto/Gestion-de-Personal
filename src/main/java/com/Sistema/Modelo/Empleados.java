@@ -19,6 +19,18 @@ public class Empleados {
 	public Empleados() {
 		super();
 	}
+	
+	
+
+	public Empleados(Integer id, String nombre, String apellido, String dui, String cargo, String salario) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.dui = dui;
+		this.cargo = cargo;
+		this.salario = salario;
+	}
 
 	public Empleados(String nombre, String apellido, String dui, String cargo, String salario) {
 		super();

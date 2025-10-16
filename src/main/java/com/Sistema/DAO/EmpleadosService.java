@@ -19,7 +19,7 @@ public class EmpleadosService implements IEmpleadosService{
     public static final String SQL_LISTAR = "SELECT id, nombre, apellido, dui,cargo ,salario FROM EMPLEADOS";
     public static final String SQL_AGREGAR = "INSERT INTO EMPLEADOS(Nombre,Apellido,DUI,Cargo,Salario)"
             + "VALUES(?,?,?,?,?)";
-    public static final String SQL_MODIFICAR =  "UPDATE EMPLEADOS SET Nombre = ?,Apellido = ?, DUI = ?,Cargo = ?"
+    public static final String SQL_MODIFICAR =  "UPDATE EMPLEADOS SET Nombre = ?,Apellido = ?, DUI = ?,Cargo = ?,"
             + "Salario = ? WHERE Id = ?";
     public static final String SQL_ELIMINAR = "DELETE FROM EMPLEADOS WHERE Id = ?";
     
@@ -89,12 +89,12 @@ public class EmpleadosService implements IEmpleadosService{
         try{
             con = Config.conectarse();//Abrimos la conexion
             ps = con.prepareStatement(SQL_MODIFICAR);
-            ps.setInt(1, modelo.getId());
-            ps.setString(2, modelo.getNombre());
-            ps.setString(3, modelo.getApellido());
-            ps.setString(4, modelo.getDui());
-            ps.setString(5, modelo.getCargo());
-            ps.setString(6, modelo.getSalario());
+            ps.setString(1, modelo.getNombre());
+            ps.setString(2, modelo.getApellido());
+            ps.setString(3, modelo.getDui());
+            ps.setString(4, modelo.getCargo());
+            ps.setString(5, modelo.getSalario());
+            ps.setInt(6, modelo.getId());
             resultado = ps.executeUpdate();//Ejecutamos la consulta
         }catch(SQLException ex){
             System.out.println("Error "+ex);
