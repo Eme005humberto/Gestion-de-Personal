@@ -106,11 +106,15 @@ table.dataTable tbody tr:hover {
 											class="btn btn-outline-primary"> <i
 											class="bi bi-pencil-square"></i> Editar
 										</a>
-										<a
-											href="${pageContext.request.contextPath}/SvEmpleados?accion=eliminar&id=${e.id}"
-											class="btn btn-outline-danger"> <i class="bi bi-trash"></i>
-											Eliminar
-										</a>
+										<form
+											action="${pageContext.request.contextPath}/SvEmpleados?accion=eliminar"
+											method="post" class="d-inline form-eliminar">
+											<input type="hidden" name="id" value="${e.id}">
+											<button type="button" class="btn btn-outline-danger"
+												onclick="confirmarEliminar(this)">
+												<i class="bi bi-trash"></i> Eliminar
+											</button>
+										</form>
 									</div>
 								</td>
 							</tr>
@@ -203,6 +207,31 @@ table.dataTable tbody tr:hover {
 		src="https://cdn.jsdelivr.net/npm/datatables.net-responsive-bs5@2.5.0/js/responsive.bootstrap5.min.js"></script>
 
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<c:if test="${sessionScope.flash == 'ok_del'}">
+		<script>
+    Swal.fire({
+      icon: 'success',
+      title: 'Eliminado',
+      text: 'El registro se eliminó correctamente.',
+      timer: 1600,
+      showConfirmButton: false
+    });
+  </script>
+		<c:remove var="flash" scope="session" />
+	</c:if>
+
+	<c:if test="${sessionScope.flash == 'error_del'}">
+		<script>
+    Swal.fire({
+      icon: 'error',
+      title: 'No se pudo eliminar',
+      text: 'Inténtalo de nuevo.'
+    });
+  </script>
+		<c:remove var="flash" scope="session" />
+	</c:if>
+
+
 
 	<c:if test="${sessionScope.flash == 'ok'}">
 		<script>
@@ -242,6 +271,24 @@ table.dataTable tbody tr:hover {
 								}
 							});
 		});
+	</script>
+	<script>
+	function confirmarEliminar(btn) {
+	    const form = btn.closest('form');
+	    Swal.fire({
+	      title: '¿Eliminar registro?',
+	      text: 'Esta acción no se puede deshacer.',
+	      icon: 'warning',
+	      showCancelButton: true,
+	      confirmButtonText: 'Sí, eliminar',
+	      cancelButtonText: 'Cancelar',
+	      reverseButtons: true
+	    }).then((result) => {
+	      if (result.isConfirmed) {
+	        form.submit(); // ← aquí recién se envía al servlet (POST)
+	      }
+	    });
+	  }
 	</script>
 </body>
 </html>

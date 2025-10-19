@@ -9,8 +9,6 @@ public class Empleados {
 	private String cargo;
 	private String salario;
 	
-	
-	
 	public Empleados(Integer id) {
 		super();
 		this.id = id;
@@ -20,8 +18,6 @@ public class Empleados {
 		super();
 	}
 	
-	
-
 	public Empleados(Integer id, String nombre, String apellido, String dui, String cargo, String salario) {
 		super();
 		this.id = id;
