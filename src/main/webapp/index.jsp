@@ -1,10 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<c:if
-	test="${empty requestScope.empleados and empty sessionScope.empleados}">
-	<jsp:forward page="SvEmpleados" />
-</c:if>
 <html lang="es">
 <head>
 <meta charset="UTF-8">

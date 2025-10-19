@@ -21,7 +21,7 @@ public class SvEmpleados extends HttpServlet {
         super();
         
     }
-
+    
     private void accionDefault(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
             
@@ -36,9 +36,11 @@ public class SvEmpleados extends HttpServlet {
 			switch(accion) {
 			case "editar":
 			 this.editarEmpleado(request,response);
+			 return;
 			}
+		}else {
+			accionDefault(request, response);
 		}
-		 accionDefault(request, response);
 	}
 
 	
@@ -54,20 +56,20 @@ public class SvEmpleados extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String accion = request.getParameter("accion");
-		if(accion != null) {
-			switch(accion) {
-			case "insertar":
-				this.insertarEmpleado(request,response);
-				return;
-			case "modificar":
-				this.modificarEmpleado(request,response);
-				return;
-		}
-	}else {
-		
-	}
-		accionDefault(request,response);
+	    if ("insertar".equalsIgnoreCase(accion)) { insertarEmpleado(request, response); return; }
+	    if ("modificar".equalsIgnoreCase(accion)) { modificarEmpleado(request, response); return; }
+	    if ("eliminar".equalsIgnoreCase(accion))  { eliminarEmpleados(request, response); return; }
+	    accionDefault(request, response);
 }
+
+	private void eliminarEmpleados(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException,IOException{
+		int id = Integer.parseInt(request.getParameter("id"));
+		int registrosModificados = new EmpleadosService().eliminarEmpleado(id);
+		System.out.println("Registros modificados: "+registrosModificados);
+		request.getSession().setAttribute("flash", (registrosModificados == 1) ? "ok" : "error");
+	    response.sendRedirect(request.getContextPath() + "/SvEmpleados");
+	}
 
 	private void modificarEmpleado(HttpServletRequest request, HttpServletResponse response) 
 		throws ServletException,IOException{
@@ -83,9 +85,8 @@ public class SvEmpleados extends HttpServlet {
 		int registrosModificados = new EmpleadosService().modificarEmpleado(empleado);
 		System.out.println("Registros modificados: "+registrosModificados);
 		
-		this.accionDefault(request, response);//Invocamos el metodo que carga la lista
-		//de empleados
-		
+		request.getSession().setAttribute("flash", (registrosModificados == 1) ? "ok" : "error");
+	    response.sendRedirect(request.getContextPath() + "/SvEmpleados");
 	}
 
 	private void insertarEmpleado(HttpServletRequest request, HttpServletResponse response)

@@ -9,7 +9,7 @@ import java.sql.SQLException;
 public class Config {
 	
 	private static final String USUARIO = "root";
-	private static final String CLAVE = "Emerson503";
+	private static final String CLAVE = "";
 	private static final String URL = "jdbc:mysql://localhost:3306/dbCRUD_JAVAWeb";
 	
 	private static Connection conexion = null;
